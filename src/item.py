@@ -1,3 +1,7 @@
+import csv
+from src.config import ITEMS_CSV_PATH
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -31,10 +35,10 @@ class Item:
     def name(self, value) -> None:
         """
         Устанавливает название товара.
-
+        Если длина названия превышает 10 символов, обрезает его до первых 10 символов.
         :param value: Новое название товара.
         """
-        self.__name = value
+        self.__name = value if len(value) <= 10 else value[:10]
 
     @property
     def price(self) -> float:
@@ -58,3 +62,25 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.__price *= self.pay_rate
+
+    @staticmethod
+    def string_to_number(value: str) -> int:
+        """
+        Преобразует числовую строку в число.
+
+        :param value: Числовая строка.
+        :return: Преобразованное число.
+        """
+        return int(float(value))
+
+    @classmethod
+    def instantiate_from_csv(cls, path=ITEMS_CSV_PATH) -> None:
+        """
+        Инициализирует экземпляры класса Item данными из CSV-файла.
+
+        Файл должен содержать строки с данными в формате: "name,price,quantity".
+        """
+        cls.all.clear()
+        with open(path, 'r', encoding='windows-1251') as file:
+            file_reader = csv.DictReader(file, delimiter=',')
+            [cls(row['name'], float(row['price']), int(row['quantity'])) for row in file_reader]
