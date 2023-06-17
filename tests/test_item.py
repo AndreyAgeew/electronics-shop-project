@@ -1,4 +1,6 @@
 from src.item import Item
+import pytest
+from src.instantiatecsverror import InstantiateCSVError
 
 
 def test_item1_name(item1):
@@ -31,6 +33,16 @@ def test_item1_discount(item1):
 def test_item_instantiate_from_csv():
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
+
+
+def test_instantiate_from_csv_file_not_found():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv("src/items.csv")
+
+
+def test_instantiate_from_csv_file_corrupted():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv("../src/items_failed.csv")
 
 
 def test_item1_from_csv_name():
