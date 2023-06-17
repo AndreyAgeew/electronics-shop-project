@@ -54,8 +54,9 @@ class Item:
         :return: количество товара в магазине.
         """
         return self.__price
+
     @property
-    def quantity(self):
+    def quantity(self) -> int:
         """
         Получает цену за единицу товара.
 

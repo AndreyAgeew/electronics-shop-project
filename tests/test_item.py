@@ -13,6 +13,7 @@ def test_item1_name_change(item1):
 def test_item1_price(item1):
     assert item1.price == 1000.0
 
+
 def test_item1_quantity(item1):
     assert item1.quantity == 5
 
