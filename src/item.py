@@ -49,11 +49,19 @@ class Item:
     @property
     def price(self) -> float:
         """
+        Получает количество товара в магазине.
+
+        :return: количество товара в магазине.
+        """
+        return self.__price
+    @property
+    def quantity(self):
+        """
         Получает цену за единицу товара.
 
         :return: Цена за единицу товара.
         """
-        return self.__price
+        return self.__quantity
 
     def calculate_total_price(self) -> float:
         """
