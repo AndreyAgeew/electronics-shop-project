@@ -28,13 +28,13 @@ def test_item1_discount(item1):
     assert item1.price == 900.0
 
 
-def test_item_instantiate_from_csv(csv_path):
-    Item.instantiate_from_csv(csv_path)
+def test_item_instantiate_from_csv():
+    Item.instantiate_from_csv()
     assert len(Item.all) == 5
 
 
-def test_item1_from_csv_name(csv_path):
-    Item.instantiate_from_csv(csv_path)
+def test_item1_from_csv_name():
+    Item.instantiate_from_csv()
     item1 = Item.all[0]
     assert item1.name == 'Смартфон'
 
