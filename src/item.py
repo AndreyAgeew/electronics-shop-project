@@ -89,13 +89,13 @@ class Item:
         return int(float(value))
 
     @classmethod
-    def instantiate_from_csv(cls, path=ITEMS_CSV_PATH) -> None:
+    def instantiate_from_csv(cls) -> None:
         """
         Инициализирует экземпляры класса Item данными из CSV-файла.
 
         Файл должен содержать строки с данными в формате: "name,price,quantity".
         """
         cls.all.clear()
-        with open(path, 'r', encoding='windows-1251') as file:
+        with open(ITEMS_CSV_PATH, 'r', encoding='windows-1251') as file:
             file_reader = csv.DictReader(file, delimiter=',')
             [cls(row['name'], float(row['price']), int(row['quantity'])) for row in file_reader]
