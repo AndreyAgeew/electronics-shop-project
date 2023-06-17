@@ -1,6 +1,6 @@
 import pytest
 from src.item import Item
-import os
+from src.phone import Phone
 
 
 @pytest.fixture
@@ -14,5 +14,5 @@ def item2():
 
 
 @pytest.fixture
-def csv_path():
-    return os.path.abspath("src/items.csv")
+def phone1():
+    return Phone("iPhone 14", 120000.0, 2, 5)
