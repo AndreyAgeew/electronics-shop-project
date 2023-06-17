@@ -2,13 +2,17 @@ import pytest
 from src.item import Item
 import os
 
+
 @pytest.fixture
-def item():
-    item = Item('Ноутбук', 1000.0, 5)
-    item2 = Item('Компьютер', 1000.0, 5)
-    yield item, item2
+def item1():
+    return Item('Ноутбук', 1000.0, 5)
 
 
 @pytest.fixture
-def path():
+def item2():
+    return Item("Смартфон", 10000, 20)
+
+
+@pytest.fixture
+def csv_path():
     return os.path.abspath("src/items.csv")
