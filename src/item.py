@@ -106,7 +106,9 @@ class Item:
                 file_reader = csv.DictReader(file, delimiter=',')
                 for row in file_reader:
                     if 'name' not in row or 'price' not in row or 'quantity' not in row:
-                        raise InstantiateCSVError()
+                        raise InstantiateCSVError(path)
                     cls(row['name'], float(row['price']), int(row['quantity']))
         except FileNotFoundError:
-            raise FileNotFoundError("Отсутствует файл items.csv")
+            print(f"Отсутствует файл {path.split('/')[-1]}")
+        except InstantiateCSVError as e:
+            print(e)

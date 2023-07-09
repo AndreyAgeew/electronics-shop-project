@@ -3,6 +3,5 @@ class InstantiateCSVError(Exception):
     Исключение, выбрасываемое при ошибке чтения CSV-файла.
     """
 
-    def __init__(self, message: str = "Файл item.csv поврежден"):
-        super().__init__(message)
-        self.message = message
+    def __init__(self, file_name: str):
+        super().__init__(f"Файл {file_name.split('/')[-1]} поврежден")
