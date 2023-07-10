@@ -5,7 +5,6 @@ from src.config import ITEMS_CSV_PATH
 from src.instantiatecsverror import InstantiateCSVError
 
 
-
 class Item:
     """
     Класс для представления товара в магазине.
@@ -94,18 +93,18 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls, path=ITEMS_CSV_PATH) -> None:
-        cls.all.clear()
         try:
             if not os.path.exists(path):
                 raise FileNotFoundError(f"Отсутствует файл {path.split('/')[-1]}")
 
+            cls.all.clear()
             with open(path, 'r', encoding='windows-1251') as file:
                 file_reader = csv.DictReader(file, delimiter=',')
 
                 for row in file_reader:
-                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                    if set(row) != {'name', 'price', 'quantity'}:
                         raise InstantiateCSVError(path)
-                    cls(row['name'], float(row['price']), int(row['quantity']))
+                    cls(**row)
 
         except FileNotFoundError:
             raise
