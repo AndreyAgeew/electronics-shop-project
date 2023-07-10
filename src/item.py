@@ -104,7 +104,6 @@ class Item:
                 for row in file_reader:
                     if set(row) != {'name', 'price', 'quantity'}:
                         raise InstantiateCSVError(path)
-                    print(row)
                     cls(row['name'], cls.string_to_number(row['price']), cls.string_to_number(row['quantity']))
 
         except FileNotFoundError:
