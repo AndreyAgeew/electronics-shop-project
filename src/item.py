@@ -1,6 +1,9 @@
 import csv
+import os
+
 from src.config import ITEMS_CSV_PATH
 from src.instantiatecsverror import InstantiateCSVError
+
 
 
 class Item:
@@ -101,14 +104,12 @@ class Item:
         :raises: InstantiateCSVError, если файл item.csv поврежден.
         """
         cls.all.clear()
-        try:
-            with open(path, 'r', encoding='windows-1251') as file:
-                file_reader = csv.DictReader(file, delimiter=',')
-                for row in file_reader:
-                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
-                        raise InstantiateCSVError(path)
-                    cls(row['name'], float(row['price']), int(row['quantity']))
-        except FileNotFoundError:
-            print(f"Отсутствует файл {path.split('/')[-1]}")
-        except InstantiateCSVError as e:
-            print(e)
+        if not os.path.exists(path):
+            raise FileNotFoundError("Отсутствует файл items.csv")
+        with open(path, 'r', encoding='windows-1251') as file:
+            file_reader = csv.DictReader(file, delimiter=',')
+            for row in file_reader:
+                if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                    raise InstantiateCSVError()
+                cls(row['name'], float(row['price']), int(row['quantity']))
+
